@@ -48,6 +48,12 @@ export async function appRoutes(app: FastifyInstance) {
         return vehicles
     })
 
+    app.get('/vehicle/count', async () => {
+        const count = await prisma.vehicle.count();
+
+        return count
+    })
+
     app.get('/vehicle', async () => {
 
         const vehs = await prisma.vehicle.findMany()

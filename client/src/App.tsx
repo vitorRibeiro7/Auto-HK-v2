@@ -1,6 +1,4 @@
-import { useState } from "react";
- 
-import { Home } from "./pages";
+import { Home, Listing } from "./pages";
 
 import {
   createBrowserRouter,
@@ -13,10 +11,10 @@ import "./index.css";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path='/' element={<Home />}>
-        <Route path='/home' element={<Home />} />
-        {/* ... etc. */}
-    </Route>
+    <>
+      <Route path='/' element={<Home />} />
+      <Route path='/home' element={<Listing />} />
+    </>
   )
 );
 
