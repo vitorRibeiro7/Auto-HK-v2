@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 import Image from "../../assets/images/homeBackground.svg";
 
+import CountUp from "react-countup";
+
 import "../../index.css";
 import { useEffect, useState } from "react";
 
@@ -15,7 +17,6 @@ export const Home = () => {
     const navigate = useNavigate();
 
     const [count, setCount ] = useState(0);
-    const [showCount, setShowCount ] = useState(0);
 
     const getCount = async () => {
       try {
@@ -26,10 +27,6 @@ export const Home = () => {
         console.log(error);
       }
     };
-
-    function timeout(delay: number) {
-      return new Promise( res => setTimeout(res, delay) );
-  }
 
     useEffect(() => {
       getCount();
@@ -58,7 +55,7 @@ export const Home = () => {
             }}>
               <Typography variant="h4" style={{ 
                 background:
-                "linear-gradient(to right, rgb(0, 127, 255), rgb(0, 89, 178))",
+                "linear-gradient(to right, #007fff, rgb(0, 89, 178))",
                     WebkitBackgroundClip: "text",
                     WebkitTextFillColor: "transparent",
                     fontFamily: "Plus Jakarta Sans",
@@ -119,7 +116,7 @@ export const Home = () => {
                   fontWeight: 300,
                   textAlign: "end"
                 }}>
-                 {showCount} 
+                 <CountUp start={0} end={count} duration={1.3}/> 
               </Typography>
               </Box>
             </Box>
