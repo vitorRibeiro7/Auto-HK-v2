@@ -11,12 +11,13 @@ datasource db {
 }
 
 model vehicle {
-  id        Int      @id @default(autoincrement())
-  name      String
-  brand     String
-  year      Int
-  description      String
-  sold      Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  name        String
+  brand       String
+  year        Int
+  description String
+  sold        Boolean
+  image       String   @default("https://www.ofertadia.com.br/wp-content/themes/deals/images/store-default.png")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
 }

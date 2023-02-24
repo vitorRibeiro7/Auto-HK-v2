@@ -1,6 +1,8 @@
-import {  Box  } from "@mui/material";
+import { Box } from "@mui/material";
+import DrawerMUI from "../../components/DrawerMUI";
 
 import { List } from "../../components/List";
+import { ListHeader } from "../../components/List/Header";
 
 import { api } from "../../services/api";
 
@@ -11,34 +13,45 @@ import { Vehicle } from "../../@types/vehicle";
 import "../../index.css";
 
 export const Listing = () => {
+  const [vehicleOject, setVehicleObject] = useState<Vehicle[]>([]);
+  const [listLoadingFlag, setListLoadingFlag] = useState(true);
 
-    const [vehicleOject, setVehicleObject] = useState<Vehicle[]>([]);
+  const getVehicles = async () => {
+    try {
+      setListLoadingFlag(true);
+      const { data } = await api.get("/vehicle");
+      console.log(data);
+      setVehicleObject(data);
+      setListLoadingFlag(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    const getVehicles = async () => {
-        try {
-          const { data } = await api.get("/vehicle");
-          console.log(data);
-          setVehicleObject(data);
-        } catch (error) {
-          console.log(error);
-        }
-    };
-  
-    useEffect(() => {
-        getVehicles();
-    }, []);
+  useEffect(() => {
+    getVehicles();
+  }, []);
 
-
-    return (
-        <Box sx={{
-            minHeight: "100vh",
-            display: "flex",
-            padding: "2vw",
-            backgroundSize: "cover",
-            backgroundAttachment: "fixed",
-            backgroundPosition: "center"
-        }}>
-            <List vehicleDetails={vehicleOject}/>
-        </Box>
-    );
-};   
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "row",
+      }}
+    >
+      <DrawerMUI />
+      <Box
+        sx={{
+          width: "100%",
+          height: "98%",
+          padding: "1vw",
+        }}
+      >
+        <ListHeader />
+        <List vehicleDetails={vehicleOject} loading={listLoadingFlag} />
+      </Box>
+    </Box>
+  );
+};

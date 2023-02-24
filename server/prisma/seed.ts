@@ -36,17 +36,23 @@ const carBrands = [
 ];
 
 async function main() {
-  for (let i = 0; i < 15; i++) {
-    const car = await prisma.vehicle.create({
-      data: {
-        name: carNames[Math.floor(Math.random() * carNames.length)],
-        brand: carBrands[Math.floor(Math.random() * carBrands.length)],
-        year: faker.datatype.number({ min: 2000, max: 2023 }),
-        description: faker.lorem.sentence(),
-        sold: faker.datatype.boolean(),
-      },
-    });
-    console.log(`Created car with ID: ${car.id}`);
+  for (let i = 261; i < 276; i++) {
+    // const car = await prisma.vehicle.create({
+    //   data: {
+    //     name: carNames[Math.floor(Math.random() * carNames.length)],
+    //     brand: carBrands[Math.floor(Math.random() * carBrands.length)],
+    //     year: faker.datatype.number({ min: 2000, max: 2023 }),
+    //     description: faker.lorem.sentence(),
+    //     sold: faker.datatype.boolean(),
+    //   },
+    // });
+    // console.log(`Created car with ID: ${car.id}`);
+
+    const delCar = await prisma.vehicle.delete({
+      where: {
+        id: i
+      }
+    })
   }
 }
 
