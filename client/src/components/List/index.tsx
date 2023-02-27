@@ -5,7 +5,7 @@ import { api } from "../../services/api";
 
 import { useState, useEffect } from "react";
 
-import { Grid, Paper, Typography, Box } from "@mui/material";
+import { Grid, Paper, Typography, Box, Divider } from "@mui/material";
 
 import { Cards } from "./Cards";
 
@@ -51,6 +51,7 @@ export const List = () => {
           padding: "1vw",
         }}
       >
+        <Divider />
         <Box
           sx={{
             display: "flex",

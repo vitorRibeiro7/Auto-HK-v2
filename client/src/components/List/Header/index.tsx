@@ -1,14 +1,6 @@
-import {
-  Box,
-  Typography,
-  TextField,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Button,
-} from "@mui/material";
+import { Box, TextField, Typography, Button, Divider } from "@mui/material";
+
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 import { useEffect, useState } from "react";
 
@@ -20,44 +12,98 @@ export const ListHeader = ({ search }: any) => {
   }, [inputValue]);
 
   return (
-    <>
+    <Box
+      sx={{
+        width: "100%",
+        height: "auto",
+        padding: "1vw",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <Box
         sx={{
           width: "100%",
-          height: "auto",
-          padding: "1vw",
-          borderRadius: "10px 10px 0px 0px",
-          borderBottom: "2px solid #e7e7e7",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
+          flexDirection: "row",
+          justifyContent: "space-between",
           alignItems: "center",
         }}
       >
-        <Box
-          sx={{
-            width: "100%",
-            display: "grid",
-            gridTemplateColumns: "auto",
-            gridTemplateRows: "1fr",
-            columnGap: "20px",
+        <Typography
+          variant="h5"
+          style={{
+            background: "linear-gradient(to right, #007fff, rgb(0, 89, 178))",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            fontFamily: "Plus Jakarta Sans",
+            fontWeight: 900,
           }}
         >
-          <TextField
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            label="What are you looking for?"
-            variant="standard"
-          />
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
+          Auto HK
+        </Typography>
+        <Box>
+          <Button
+            variant="contained"
+            size="large"
+            endIcon={<AddCircleOutlineIcon />}
+            style={{
+              fontFamily: "Plus Jakarta Sans",
+              fontWeight: 500,
+              width: "auto",
+              background:
+                "linear-gradient(to right, rgb(0, 127, 255), rgb(0, 89, 178))",
             }}
-          ></Box>
+          >
+            Add new
+          </Button>
         </Box>
       </Box>
-    </>
+      <Box
+        sx={{
+          width: "100%",
+        }}
+      >
+        <Divider>
+          <Typography
+            variant="subtitle2"
+            style={{
+              fontWeight: "400",
+              opacity: "0.4",
+            }}
+          >
+            or
+          </Typography>
+        </Divider>
+      </Box>
+      <Typography
+        variant="overline"
+        style={{
+          fontWeight: "400",
+          opacity: "0.8",
+        }}
+      >
+        find yours vehicles:
+      </Typography>
+      <Box
+        sx={{
+          width: "100%",
+          display: "grid",
+          alignItems: "end",
+          gridTemplateColumns: "auto",
+          columnGap: "20px",
+        }}
+      >
+        <TextField
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          label="Name or Brand"
+          variant="filled"
+          focused
+        />
+      </Box>
+    </Box>
   );
 };

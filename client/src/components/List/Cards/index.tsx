@@ -16,17 +16,19 @@ export const Cards = ({ vehicle }: CardProps) => {
         borderRadius: "12px",
         display: "flex",
         flexDirection: "column",
+        cursor: "pointer",
       }}
+      onClick={() => console.log(vehicle)}
     >
       <CardMedia
-        sx={{ height: "200px" }}
+        sx={{ height: "180px" }}
         image="https://images.unsplash.com/photo-1616455579100-2ceaa4eb2d37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ym13JTIwY2FyfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
         title="some car image"
       />
       <Box
         sx={{
           width: "100%",
-          height: "150px",
+          height: "auto",
           display: "flex",
           padding: "10px",
         }}
@@ -46,6 +48,15 @@ export const Cards = ({ vehicle }: CardProps) => {
               flexDirection: "column",
             }}
           >
+            <Typography
+              variant="subtitle2"
+              style={{
+                fontFamily: "Plus Jakarta Sans",
+                fontWeight: 300,
+              }}
+            >
+              {vehicle.brand}
+            </Typography>
             <Typography
               variant="h6"
               style={{
