@@ -6,8 +6,25 @@ export const BackButton = ({ toGo }: any) => {
   const navigate = useNavigate();
 
   return (
-    <Button onClick={() => navigate(toGo)} startIcon={<ArrowBackIcon />}>
-      <Typography variant="button">return</Typography>
+    <Button
+      onClick={() => navigate(toGo)}
+      startIcon={<ArrowBackIcon />}
+      sx={{
+        marginTop: "10px",
+        color: "#7c7c7c",
+        alignItems: "center",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: "12px",
+          fontWeight: 500,
+        }}
+      >
+        RETURN
+      </Typography>
     </Button>
   );
 };

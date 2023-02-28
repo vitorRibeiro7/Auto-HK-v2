@@ -1,13 +1,15 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { BackButton } from "../../components/BackButton";
+
+import Header from "../../components/Header";
 
 import { List } from "../../components/List";
 
 import "../../index.css";
 
-export const Listing = () => {
+export const ListPage = () => {
   return (
-    <Box
+    <Container
       sx={{
         width: "100%",
         minHeight: "100vh",
@@ -17,6 +19,7 @@ export const Listing = () => {
         padding: "1vw",
       }}
     >
+      <Header />
       <Box
         sx={{
           mb: "10px",
@@ -32,6 +35,6 @@ export const Listing = () => {
       >
         <List />
       </Box>
-    </Box>
+    </Container>
   );
 };

@@ -28,38 +28,24 @@ export const ListHeader = ({ search }: any) => {
           width: "100%",
           display: "flex",
           flexDirection: "row",
-          justifyContent: "space-between",
+          justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <Typography
-          variant="h5"
-          style={{
-            background: "linear-gradient(to right, #007fff, rgb(0, 89, 178))",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
+        <Button
+          variant="contained"
+          size="large"
+          endIcon={<AddCircleOutlineIcon />}
+          sx={{
+            width: "100%",
             fontFamily: "Plus Jakarta Sans",
-            fontWeight: 900,
+            fontWeight: 500,
+            background:
+              "linear-gradient(to right, rgb(0, 127, 255), rgb(0, 89, 178))",
           }}
         >
-          Auto HK
-        </Typography>
-        <Box>
-          <Button
-            variant="contained"
-            size="large"
-            endIcon={<AddCircleOutlineIcon />}
-            style={{
-              fontFamily: "Plus Jakarta Sans",
-              fontWeight: 500,
-              width: "auto",
-              background:
-                "linear-gradient(to right, rgb(0, 127, 255), rgb(0, 89, 178))",
-            }}
-          >
-            Add new
-          </Button>
-        </Box>
+          Add new
+        </Button>
       </Box>
       <Box
         sx={{
@@ -68,10 +54,10 @@ export const ListHeader = ({ search }: any) => {
       >
         <Divider>
           <Typography
-            variant="subtitle2"
-            style={{
+            variant="overline"
+            sx={{
               fontWeight: "400",
-              opacity: "0.4",
+              opacity: "0.5",
             }}
           >
             or
@@ -80,12 +66,12 @@ export const ListHeader = ({ search }: any) => {
       </Box>
       <Typography
         variant="overline"
-        style={{
+        sx={{
           fontWeight: "400",
           opacity: "0.8",
         }}
       >
-        find yours vehicles:
+        find your vehicles:
       </Typography>
       <Box
         sx={{
@@ -101,7 +87,6 @@ export const ListHeader = ({ search }: any) => {
           onChange={(e) => setInputValue(e.target.value)}
           label="Name or Brand"
           variant="filled"
-          focused
         />
       </Box>
     </Box>

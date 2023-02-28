@@ -5,22 +5,19 @@ import { api } from "../../services/api";
 
 import { useState, useEffect } from "react";
 
-import { Grid, Paper, Typography, Box, Divider } from "@mui/material";
+import { Grid, Typography, Box, Divider } from "@mui/material";
 
 import { Cards } from "./Cards";
 
 export const List = () => {
   const [vehicleOject, setVehicleObject] = useState<Vehicle[]>([]);
-  const [listLoadingFlag, setListLoadingFlag] = useState(true);
   const [currentSearch, setCurrentSearch] = useState("");
 
   const getVehicles = async (nameOrBrand: string) => {
     try {
-      setListLoadingFlag(true);
       const { data } = await api.get(`/vehicle/find?q=${nameOrBrand}`);
       console.log(data);
       setVehicleObject(data);
-      setListLoadingFlag(false);
     } catch (error) {
       console.log(error);
     }
@@ -60,7 +57,7 @@ export const List = () => {
         >
           <Typography
             variant="overline"
-            style={{
+            sx={{
               marginBottom: "15px",
               fontFamily: "Plus Jakarta Sans",
               fontWeight: 300,

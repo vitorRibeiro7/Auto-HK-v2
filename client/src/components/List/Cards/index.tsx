@@ -50,7 +50,7 @@ export const Cards = ({ vehicle }: CardProps) => {
           >
             <Typography
               variant="subtitle2"
-              style={{
+              sx={{
                 fontFamily: "Plus Jakarta Sans",
                 fontWeight: 300,
               }}
@@ -59,7 +59,7 @@ export const Cards = ({ vehicle }: CardProps) => {
             </Typography>
             <Typography
               variant="h6"
-              style={{
+              sx={{
                 fontFamily: "Plus Jakarta Sans",
                 fontWeight: 900,
               }}
@@ -68,7 +68,7 @@ export const Cards = ({ vehicle }: CardProps) => {
             </Typography>
             <Typography
               variant="overline"
-              style={{
+              sx={{
                 fontFamily: "Plus Jakarta Sans",
                 fontWeight: 300,
               }}
@@ -79,7 +79,7 @@ export const Cards = ({ vehicle }: CardProps) => {
           <Box>
             <Typography
               variant="subtitle2"
-              style={{
+              sx={{
                 fontFamily: "Plus Jakarta Sans",
                 fontWeight: 400,
                 color: vehicle.sold ? "red" : "green",

@@ -1,4 +1,4 @@
-import { Home, Listing } from "./pages";
+import { HomePage, ListPage, CreatePage } from "./pages";
 
 import {
   createBrowserRouter,
@@ -8,22 +8,21 @@ import {
 } from "react-router-dom";
 
 import "./index.css";
+import VehicleForm from "./components/VehicleForm";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path='/' element={<Home />} />
-      <Route path='/home' element={<Listing />} />
-      <Route path='/vehicle/:id' element={<Home />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/home" element={<ListPage />} />
+      <Route path="/vehicle/:id" element={<HomePage />} />
+      <Route path="/create" element={<CreatePage />} />
     </>
   )
 );
 
 function App() {
-
-  return (
-    <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
