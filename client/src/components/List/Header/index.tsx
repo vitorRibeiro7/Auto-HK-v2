@@ -1,10 +1,14 @@
 import { Box, TextField, Typography, Button, Divider } from "@mui/material";
 
+import { useNavigate } from "react-router-dom";
+
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 import { useEffect, useState } from "react";
 
 export const ListHeader = ({ search }: any) => {
+  const navigate = useNavigate();
+
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
@@ -43,6 +47,7 @@ export const ListHeader = ({ search }: any) => {
             background:
               "linear-gradient(to right, rgb(0, 127, 255), rgb(0, 89, 178))",
           }}
+          onClick={() => navigate("../create")}
         >
           Add new
         </Button>

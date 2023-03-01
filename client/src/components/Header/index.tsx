@@ -7,13 +7,13 @@ const Header = () => {
       sx={{
         width: "100%",
         borderRadius: "8px",
-        margin: "auto",
         padding: "10px 50px",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
         background: "#ffffff",
         boxShadow: "5px 5px 20px #dedede,  -5px -5px 20px #ffffff",
+        border: "1px solid #dddddd",
       }}
     >
       <Typography

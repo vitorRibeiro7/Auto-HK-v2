@@ -1,27 +1,69 @@
-import { Box, TextField, Paper, Button, Typography } from "@mui/material";
-import { ErrorResponse } from "@remix-run/router";
+import {
+  Box,
+  TextField,
+  Paper,
+  Button,
+  Typography,
+  Switch,
+  FormGroup,
+  FormControlLabel,
+} from "@mui/material";
 
-import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
-const VehicleForm = () => {
+import * as Yup from "yup";
+
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+interface VehicleFormProps {
+  title: String;
+  initialValues: any;
+  onSubmit: any;
+  onCancel: () => void;
+  flag: boolean;
+}
+
+const VehicleSchema = Yup.object({
+  name: Yup.string().required("This field is required"),
+  image: Yup.string(),
+  brand: Yup.string().required("This field is required"),
+  year: Yup.number()
+    .min(1980, "Need to be greater than 1980")
+    .max(2025, "Need to bem less than 2025")
+    .required("This field is required"),
+  sold: Yup.boolean(),
+  description: Yup.string().required("This field is required"),
+});
+
+const VehicleForm = ({
+  title,
+  initialValues,
+  onSubmit,
+  onCancel,
+  flag,
+}: VehicleFormProps) => {
+  const navigate = useNavigate();
+
   const {
     register,
+    control,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm();
+    setValue,
+  } = useForm({
+    defaultValues: initialValues,
+    resolver: yupResolver(VehicleSchema),
+  });
 
-  console.log(watch("example"));
-
-  const onSubmit = (data: any) => console.log(data);
+  const handleSoldState = (e: any) => {
+    console.log(e.target.checked);
+    setValue("sold", e.target.checked);
+  };
 
   return (
-    <Paper
-      elevation={4}
+    <Box
       sx={{
-        alignSelf: "center",
         padding: "16px",
-        margin: "18px",
         width: { desktop: "60%", laptop: "70%", tablet: "85%", mobile: "95%" },
         minHeight: "60vh",
         height: "auto",
@@ -29,6 +71,10 @@ const VehicleForm = () => {
         justifyContent: "center",
         flexDirection: "column",
         gap: 1,
+        background: "#ffffff",
+        boxShadow: "5px 5px 20px #dedede,  -5px -5px 20px #ffffff",
+        border: "1px solid #dddddd",
+        borderRadius: "8px",
       }}
     >
       <Typography
@@ -37,9 +83,9 @@ const VehicleForm = () => {
           textAlign: "center",
         }}
       >
-        Register a new Vehicle
+        {title}
       </Typography>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <Box>
         <Box
           sx={{
             display: "flex",
@@ -58,19 +104,19 @@ const VehicleForm = () => {
             <TextField
               placeholder="Name"
               fullWidth
-              {...register("name", { required: true })}
+              {...register("name")}
               error={Boolean(errors.name)}
-              helperText={errors.name && "Name is required"}
+              helperText={errors.name?.message?.toString()}
               sx={{
                 width: "49.5%",
               }}
             />
             <TextField
-              placeholder="Photo url"
+              placeholder="Image"
               fullWidth
-              {...register("photo", { required: false })}
-              error={Boolean(errors.photo)}
-              helperText={errors.photo && "Year is required"}
+              {...register("image")}
+              error={Boolean(errors.image)}
+              helperText={errors.image?.message?.toString()}
               sx={{
                 width: "49.5%",
               }}
@@ -87,9 +133,9 @@ const VehicleForm = () => {
             <TextField
               placeholder="Brand"
               fullWidth
-              {...register("brand", { required: true })}
+              {...register("brand")}
               error={Boolean(errors.brand)}
-              helperText={errors.brand && "Brand is required"}
+              helperText={errors.brand?.message?.toString()}
               sx={{
                 width: "49.5%",
               }}
@@ -97,21 +143,30 @@ const VehicleForm = () => {
             <TextField
               placeholder="Year"
               fullWidth
-              {...register("year", { required: true })}
+              {...register("year", { required: true, min: 1975, max: 2025 })}
               error={Boolean(errors.year)}
-              helperText={errors.year && "Year is required"}
+              helperText={errors.year?.message?.toString()}
+              type="number"
               sx={{
                 width: "49.5%",
               }}
             />
           </Box>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Switch {...register("sold")} onChange={handleSoldState} />
+              }
+              label="Sold"
+            />
+          </FormGroup>
           <TextField
             placeholder="Description"
             multiline
             fullWidth
-            {...register("description", { required: true })}
+            {...register("description")}
             error={Boolean(errors.description)}
-            helperText={errors.description && "Description is required"}
+            helperText={errors.description?.message?.toString()}
             minRows={4}
           />
         </Box>
@@ -125,13 +180,13 @@ const VehicleForm = () => {
           }}
         >
           <Button
-            type="submit"
             variant="contained"
             sx={{
               width: "150px",
             }}
+            onClick={() => handleSubmit(onSubmit)()}
           >
-            Enviar
+            {flag ? "Confirmar" : "Criar"}
           </Button>
           <Button
             variant="contained"
@@ -139,12 +194,13 @@ const VehicleForm = () => {
             sx={{
               width: "150px",
             }}
+            onClick={onCancel}
           >
-            cancelar
+            Cancelar
           </Button>
         </Box>
-      </form>
-    </Paper>
+      </Box>
+    </Box>
   );
 };
 

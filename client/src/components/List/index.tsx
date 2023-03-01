@@ -37,6 +37,7 @@ export const List = () => {
         borderRadius: "12px",
         background: "#ffffff",
         boxShadow: "5px 5px 20px #dedede,  -5px -5px 20px #ffffff",
+        border: "1px solid #dddddd",
       }}
     >
       <ListHeader search={handleSearch} />

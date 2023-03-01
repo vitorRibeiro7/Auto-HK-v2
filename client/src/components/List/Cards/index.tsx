@@ -17,12 +17,13 @@ export const Cards = ({ vehicle }: CardProps) => {
         display: "flex",
         flexDirection: "column",
         cursor: "pointer",
+        border: "1px solid #dddddd",
       }}
       onClick={() => console.log(vehicle)}
     >
       <CardMedia
         sx={{ height: "180px" }}
-        image="https://images.unsplash.com/photo-1616455579100-2ceaa4eb2d37?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Ym13JTIwY2FyfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+        image={vehicle.image}
         title="some car image"
       />
       <Box
