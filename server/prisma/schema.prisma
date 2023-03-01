@@ -14,7 +14,6 @@ model vehicle {
   id          Int      @id @default(autoincrement())
   name        String
   brand       String
-  phot_url    String   @default("https://www.shutterstock.com/image-illustration/silhouette-prototype-passenger-car-front-260nw-1988819618.jpg")
   year        Int
   description String
   sold        Boolean

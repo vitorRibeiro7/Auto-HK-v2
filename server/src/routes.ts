@@ -9,7 +9,6 @@ export async function appRoutes(app: FastifyInstance) {
         const createvehicleBody = z.object({
             name: z.string(),
             brand: z.string(),
-            photo_url: z.string(),
             year: z.number().min(1980).max(2024),
             description: z.string(),
             image: z.string(),
@@ -22,7 +21,6 @@ export async function appRoutes(app: FastifyInstance) {
             data: {
                 name,
                 brand,
-                photo_url,
                 year,
                 description,
                 image,
@@ -92,7 +90,6 @@ export async function appRoutes(app: FastifyInstance) {
         const createVehicleBody = z.object({
             name: z.string(),
             brand: z.string(),
-            photo_url: z.string(),
             year: z.number().min(1980).max(2024),
             description: z.string(),
             image: z.string(),
@@ -111,7 +108,6 @@ export async function appRoutes(app: FastifyInstance) {
             data: {
                 name,
                 brand,
-                photo_url,
                 year,
                 description,
                 sold,
@@ -132,13 +128,14 @@ export async function appRoutes(app: FastifyInstance) {
             photo_url: z.string().optional(),
             year: z.number().min(1980).max(2024).optional(),
             description: z.string().optional(),
+            image: z.string(),
             sold: z.boolean().optional()
         })
 
         const { id } = idVehParams.parse(request.params);
         const parsedId = parseInt(id, 10);
 
-        const { name, brand, year, description, sold } = createVehicleBody.parse(request.body)
+        const { name, brand, year, description, sold, image } = createVehicleBody.parse(request.body)
 
         await prisma.vehicle.update({
             where: {
@@ -149,6 +146,7 @@ export async function appRoutes(app: FastifyInstance) {
                 brand,
                 year,
                 description,
+                image,
                 sold,
                 updatedAt: new Date()
             }
