@@ -9,6 +9,7 @@ export async function appRoutes(app: FastifyInstance) {
         const createvehicleBody = z.object({
             name: z.string(),
             brand: z.string(),
+            photo_url: z.string(),
             year: z.number().min(1980).max(2024),
             description: z.string(),
             image: z.string(),
@@ -21,6 +22,7 @@ export async function appRoutes(app: FastifyInstance) {
             data: {
                 name,
                 brand,
+                photo_url,
                 year,
                 description,
                 image,
@@ -87,9 +89,10 @@ export async function appRoutes(app: FastifyInstance) {
             id: z.string()
         })
 
-        const createvehicleBody = z.object({
+        const createVehicleBody = z.object({
             name: z.string(),
             brand: z.string(),
+            photo_url: z.string(),
             year: z.number().min(1980).max(2024),
             description: z.string(),
             image: z.string(),
@@ -99,7 +102,7 @@ export async function appRoutes(app: FastifyInstance) {
         const { id } = idVehParams.parse(request.params);
         const parsedId = parseInt(id, 10);
 
-        const { name, brand, year, description, sold, image } = createvehicleBody.parse(request.body)
+        const { name, brand, year, description, sold, image } = createVehicleBody.parse(request.body)
 
         await prisma.vehicle.update({
             where: {
@@ -108,6 +111,7 @@ export async function appRoutes(app: FastifyInstance) {
             data: {
                 name,
                 brand,
+                photo_url,
                 year,
                 description,
                 sold,
@@ -122,9 +126,10 @@ export async function appRoutes(app: FastifyInstance) {
             id: z.string()
         })
 
-        const createvehicleBody = z.object({
+        const createVehicleBody = z.object({
             name: z.string().optional(),
             brand: z.string().optional(),
+            photo_url: z.string().optional(),
             year: z.number().min(1980).max(2024).optional(),
             description: z.string().optional(),
             sold: z.boolean().optional()
@@ -133,7 +138,7 @@ export async function appRoutes(app: FastifyInstance) {
         const { id } = idVehParams.parse(request.params);
         const parsedId = parseInt(id, 10);
 
-        const { name, brand, year, description, sold } = createvehicleBody.parse(request.body)
+        const { name, brand, year, description, sold } = createVehicleBody.parse(request.body)
 
         await prisma.vehicle.update({
             where: {
