@@ -5,28 +5,35 @@ import VehicleForm from "../../components/VehicleForm";
 
 import { api } from "../../services/api";
 
-interface valuesType {
-  name: string;
-  brand: string;
-  image: string;
-  year: number;
-  description: string;
-  sold: boolean;
-}
+import { useForm, FieldValues } from "react-hook-form";
+
+import { ICreateVehicleDto } from "../../services/dto/create-vehicle.dto";
 
 export const CreatePage = () => {
   const navigate = useNavigate();
+
+  const { handleSubmit } = useForm();
 
   const initialValues = {
     name: "",
     image: "",
     brand: "",
+    year: 1980,
     sold: false,
-    year: 1998,
     description: "",
   };
 
-  const handleCreate = async (values: valuesType) => {
+  // const initialValues = {
+  //   name: "",
+  //   image:
+  //     "https://cdn.autopapo.com.br/box/uploads/2021/12/16011639/chevrolet-vectra-cd-cinza-de-frente-732x488.jpg",
+  //   brand: "Chevrolet",
+  //   sold: false,
+  //   year: 1998,
+  //   description: "asdfghjkadadaddad",
+  // };
+
+  const onSubmit = async (values: ICreateVehicleDto) => {
     console.log(values);
 
     try {
@@ -46,11 +53,6 @@ export const CreatePage = () => {
     }
   };
 
-  function handleSubmit(data: valuesType) {
-    console.log(data);
-    handleCreate(data);
-  }
-
   return (
     <Container
       sx={{
@@ -65,10 +67,10 @@ export const CreatePage = () => {
     >
       <Header />
       <VehicleForm
-        initialValues={initialValues}
+        defaultValues={initialValues}
         title="register a new vehicle"
-        onSubmit={handleSubmit}
-        onCancel={() => navigate("../home")}
+        onSubmit={onSubmit}
+        onCancel={() => navigate(-1)}
         flag={false}
       />
     </Container>

@@ -11,33 +11,22 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
-import * as Yup from "yup";
-
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import { CreateVehicleDto } from "../../services/dto/create-vehicle.dto";
+
 interface VehicleFormProps {
   title: String;
-  initialValues: any;
+  defaultValues: any;
   onSubmit: any;
   onCancel: () => void;
   flag: boolean;
 }
 
-const VehicleSchema = Yup.object({
-  name: Yup.string().required("This field is required"),
-  image: Yup.string(),
-  brand: Yup.string().required("This field is required"),
-  year: Yup.number()
-    .min(1980, "Need to be greater than 1980")
-    .max(2024, "Need to bem less than 2025")
-    .required("This field is required"),
-  sold: Yup.boolean(),
-  description: Yup.string().required("This field is required"),
-});
-
 const VehicleForm = ({
   title,
-  initialValues,
+  defaultValues,
   onSubmit,
   onCancel,
   flag,
@@ -46,13 +35,13 @@ const VehicleForm = ({
 
   const {
     register,
-    control,
-    handleSubmit,
     formState: { errors },
+    handleSubmit,
+    control,
     setValue,
   } = useForm({
-    defaultValues: initialValues,
-    resolver: yupResolver(VehicleSchema),
+    defaultValues,
+    resolver: yupResolver(CreateVehicleDto),
   });
 
   const handleSoldState = (e: any) => {
@@ -84,7 +73,7 @@ const VehicleForm = ({
       >
         {title}
       </Typography>
-      <Box>
+      <Box component="form" onSubmit={handleSubmit(onSubmit)}>
         <Box
           sx={{
             display: "flex",
@@ -100,25 +89,39 @@ const VehicleForm = ({
               justifyContent: "space-between",
             }}
           >
-            <TextField
-              placeholder="Name"
-              fullWidth
-              {...register("name")}
-              error={Boolean(errors.name)}
-              helperText={errors.name?.message?.toString()}
-              sx={{
-                width: "49.5%",
-              }}
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  placeholder="Onix"
+                  label="Name"
+                  fullWidth
+                  error={Boolean(errors.name)}
+                  helperText={errors.name?.message?.toString()}
+                  sx={{
+                    width: "49.5%",
+                  }}
+                  {...field}
+                />
+              )}
             />
-            <TextField
-              placeholder="Image"
-              fullWidth
-              {...register("image")}
-              error={Boolean(errors.image)}
-              helperText={errors.image?.message?.toString()}
-              sx={{
-                width: "49.5%",
-              }}
+            <Controller
+              name="image"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  placeholder="Link"
+                  label="Image"
+                  fullWidth
+                  error={Boolean(errors.image)}
+                  helperText={errors.image?.message?.toString()}
+                  sx={{
+                    width: "49.5%",
+                  }}
+                  {...field}
+                />
+              )}
             />
           </Box>
           <Box
@@ -129,44 +132,71 @@ const VehicleForm = ({
               justifyContent: "space-between",
             }}
           >
-            <TextField
-              placeholder="Brand"
-              fullWidth
-              {...register("brand")}
-              error={Boolean(errors.brand)}
-              helperText={errors.brand?.message?.toString()}
-              sx={{
-                width: "49.5%",
-              }}
+            <Controller
+              name="brand"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  placeholder="Chevrolet"
+                  label="Brand"
+                  fullWidth
+                  error={Boolean(errors.brand)}
+                  helperText={errors.brand?.message?.toString()}
+                  sx={{
+                    width: "49.5%",
+                  }}
+                  {...field}
+                />
+              )}
             />
-            <TextField
-              placeholder="Year"
-              fullWidth
-              {...register("year", { required: true, min: 1975, max: 2025 })}
-              error={Boolean(errors.year)}
-              helperText={errors.year?.message?.toString()}
-              type="number"
-              sx={{
-                width: "49.5%",
-              }}
+            <Controller
+              name="year"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  placeholder="1980 - 2025"
+                  label="Year"
+                  fullWidth
+                  error={Boolean(errors.year)}
+                  helperText={errors.year?.message?.toString()}
+                  sx={{
+                    width: "49.5%",
+                  }}
+                  {...field}
+                />
+              )}
             />
           </Box>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Switch {...register("sold")} onChange={handleSoldState} />
-              }
-              label="Sold"
-            />
-          </FormGroup>
-          <TextField
-            placeholder="Description"
-            multiline
-            fullWidth
-            {...register("description")}
-            error={Boolean(errors.description)}
-            helperText={errors.description?.message?.toString()}
-            minRows={4}
+
+          <Controller
+            name="sold"
+            control={control}
+            render={({ field }) => (
+              <FormGroup>
+                <FormControlLabel
+                  control={<Switch onChange={handleSoldState} />}
+                  label="Sold"
+                  {...field}
+                />
+              </FormGroup>
+            )}
+          />
+          <Controller
+            name="description"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                label="Description"
+                placeholder="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla dolorem non eos molestiae quas, explicabo expedita aperiam nisi, consequatur commodi corrupti dolores quae! Ad deserunt aspernatur maiores unde exercitationem temporibus!"
+                multiline
+                fullWidth
+                {...register("description")}
+                error={Boolean(errors.description)}
+                helperText={errors.description?.message?.toString()}
+                minRows={4}
+                {...field}
+              />
+            )}
           />
         </Box>
         <Box
@@ -179,11 +209,12 @@ const VehicleForm = ({
           }}
         >
           <Button
+            type="submit"
             variant="contained"
             sx={{
               width: "150px",
             }}
-            onClick={() => handleSubmit(onSubmit)()}
+            // onClick={() => handleSubmit(onSubmit)()}
           >
             {flag ? "Confirmar" : "Criar"}
           </Button>
