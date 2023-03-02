@@ -45,7 +45,7 @@ export const List = () => {
         sx={{
           width: "auto",
           height: "98%",
-          minHeight: "80vh",
+          minHeight: "40vh",
           padding: "1vw",
         }}
       >

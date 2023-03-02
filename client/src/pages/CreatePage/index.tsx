@@ -18,31 +18,32 @@ export const CreatePage = () => {
   const navigate = useNavigate();
 
   const initialValues = {
-    name: "TESTE",
-    image: "TESTE",
-    brand: "TESTE",
-    sold: true,
+    name: "",
+    image: "",
+    brand: "",
+    sold: false,
     year: 1998,
-    description: "TESTE",
+    description: "",
   };
 
   const handleCreate = async (values: valuesType) => {
     console.log(values);
 
-    // try {
-    //   await api.post("/vehicle", {
-    //     name: values.name,
-    //     image: values.image,
-    //     brand: values.brand,
-    //     year: values.year,
-    //     description: values.description,
-    //     sold: values.sold,
-    //   });
+    try {
+      await api.post("/vehicle", {
+        name: values.name,
+        image: values.image,
+        brand: values.brand,
+        year: values.year,
+        description: values.description,
+        sold: values.sold,
+      });
 
-    //   window.location.reload();
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      navigate("../home");
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   function handleSubmit(data: valuesType) {

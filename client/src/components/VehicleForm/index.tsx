@@ -29,7 +29,7 @@ const VehicleSchema = Yup.object({
   brand: Yup.string().required("This field is required"),
   year: Yup.number()
     .min(1980, "Need to be greater than 1980")
-    .max(2025, "Need to bem less than 2025")
+    .max(2024, "Need to bem less than 2025")
     .required("This field is required"),
   sold: Yup.boolean(),
   description: Yup.string().required("This field is required"),
@@ -56,7 +56,6 @@ const VehicleForm = ({
   });
 
   const handleSoldState = (e: any) => {
-    console.log(e.target.checked);
     setValue("sold", e.target.checked);
   };
 
