@@ -11,6 +11,8 @@ import {
 
 import { useNavigate } from "react-router-dom";
 
+import { useEffect } from "react";
+
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -39,10 +41,15 @@ const VehicleForm = ({
     handleSubmit,
     control,
     setValue,
+    getValues,
   } = useForm({
     defaultValues,
     resolver: yupResolver(CreateVehicleDto),
   });
+
+  useEffect(() => {
+    console.log("teste", defaultValues);
+  }, []);
 
   const handleSoldState = (e: any) => {
     setValue("sold", e.target.checked);
@@ -176,6 +183,7 @@ const VehicleForm = ({
                 <FormControlLabel
                   control={<Switch onChange={handleSoldState} />}
                   label="Sold"
+                  checked={getValues("sold")}
                   {...field}
                 />
               </FormGroup>
