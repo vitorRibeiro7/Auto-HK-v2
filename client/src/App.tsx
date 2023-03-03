@@ -10,6 +10,7 @@ import {
 import "./index.css";
 import VehicleForm from "./components/VehicleForm";
 import CarViewPage from "./pages/CarViewPage";
+import { EditPage } from "./pages/EditPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route path="/home" element={<ListPage />} />
       <Route path="/vehicle/:id" element={<HomePage />} />
       <Route path="/create" element={<CreatePage />} />
+      <Route path="/edit/:id" element={<EditPage />} />
       <Route path="/carView/:id" element={<CarViewPage />} />
     </>
   )

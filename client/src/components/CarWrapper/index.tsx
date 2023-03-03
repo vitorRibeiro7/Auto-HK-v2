@@ -1,4 +1,11 @@
-import { Typography, Card, CardMedia, Box, Button } from "@mui/material";
+import {
+  Typography,
+  Card,
+  CardMedia,
+  Box,
+  Button,
+  cardActionAreaClasses,
+} from "@mui/material";
 import { Vehicle } from "../../@types/vehicle";
 
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -6,6 +13,9 @@ import EditIcon from "@mui/icons-material/Edit";
 
 import { useNavigate } from "react-router-dom";
 import { LinearProgress } from "@mui/material";
+import DeleteModal from "../DeleteModal";
+
+import { useState } from "react";
 
 interface CardProps {
   vehicle: Vehicle;
@@ -14,11 +24,15 @@ interface CardProps {
 export const CarWrapper = ({ vehicle }: any) => {
   const navigate = useNavigate();
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <Card
       sx={{
         width: "100%",
-        height: "420px",
+        height: "450px",
         borderRadius: "12px",
         display: "flex",
         flexDirection: "row",
@@ -26,8 +40,9 @@ export const CarWrapper = ({ vehicle }: any) => {
         alignItems: vehicle ? "none" : "center",
         justifyContent: vehicle ? "none" : "center",
       }}
-      onClick={() => navigate(`/carView/${vehicle.id}`)}
     >
+      <DeleteModal open={open} onClose={handleClose} id={vehicle?.id} />
+
       {vehicle ? (
         <>
           <CardMedia
@@ -119,11 +134,20 @@ export const CarWrapper = ({ vehicle }: any) => {
                     gap: 2,
                   }}
                 >
-                  <Button variant="contained" startIcon={<DeleteIcon />}>
-                    Remove
-                  </Button>
-                  <Button variant="contained" startIcon={<EditIcon />}>
+                  <Button
+                    variant="contained"
+                    startIcon={<EditIcon />}
+                    onClick={() => navigate(`../../edit/${vehicle.id}`)}
+                  >
                     Edit
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    startIcon={<DeleteIcon />}
+                    onClick={handleOpen}
+                  >
+                    Delete
                   </Button>
                 </Box>
               </Box>
