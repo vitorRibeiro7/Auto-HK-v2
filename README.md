@@ -1,7 +1,16 @@
-Nova versão do Auto-HK
+### Utilizados
 
-projeto agora focado no front-end ultilzando as tecnologias do estágio:
-
-Material UI,
-React Router Dom,
-entre outros...
+- [x] React
+- [x] React Router Dom
+- [x] React Material Design
+- [x] Axios
+- [x] Yup
+- [x] React Hook Form
+- [x] Vite
+- [ ] Husky
+- [ ] Jest
+- [x] Eslint
+- [x] Prettier
+- [ ] EditorConfig
+- [x] Yarn  
+- [x] Typescript
