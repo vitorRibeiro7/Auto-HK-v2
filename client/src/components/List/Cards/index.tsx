@@ -1,11 +1,15 @@
 import { Typography, Card, CardMedia, Box } from "@mui/material";
 import { Vehicle } from "../../../@types/vehicle";
 
+import { useNavigate } from "react-router-dom";
+
 interface CardProps {
   vehicle: Vehicle;
 }
 
 export const Cards = ({ vehicle }: CardProps) => {
+  const navigate = useNavigate();
+
   return (
     <Card
       sx={{
@@ -19,12 +23,12 @@ export const Cards = ({ vehicle }: CardProps) => {
         cursor: "pointer",
         border: "1px solid #dddddd",
       }}
-      onClick={() => console.log(vehicle)}
+      onClick={() => navigate(`/carView/${vehicle.id}`)}
     >
       <CardMedia
         sx={{ height: "180px" }}
         image={vehicle.image}
-        title="some car image"
+        title={`image of ${vehicle.name}`}
       />
       <Box
         sx={{
@@ -67,7 +71,7 @@ export const Cards = ({ vehicle }: CardProps) => {
             >
               {vehicle.name}
             </Typography>
-            <Typography
+            {/* <Typography
               variant="overline"
               sx={{
                 fontFamily: "Plus Jakarta Sans",
@@ -75,7 +79,7 @@ export const Cards = ({ vehicle }: CardProps) => {
               }}
             >
               {vehicle.year}
-            </Typography>
+            </Typography> */}
           </Box>
           <Box>
             <Typography
