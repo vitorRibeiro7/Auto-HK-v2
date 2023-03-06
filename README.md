@@ -7,11 +7,11 @@
 - [x] Yup
 - [x] React Hook Form
 - [x] Vite
-- [ ] Husky
+- [x] Husky
 - [ ] Jest
 - [x] Eslint
 - [x] Prettier
-- [ ] EditorConfig
+- [x] EditorConfig
 - [x] Yarn  
 - [x] Typescript
 - [ ] UseQuery
