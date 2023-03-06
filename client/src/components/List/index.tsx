@@ -1,98 +1,98 @@
-import { Vehicle } from "../../@types/vehicle";
-import { ListHeader } from "./Header";
+import { Vehicle } from '../../@types/vehicle';
+import { ListHeader } from './Header';
 
-import { api } from "../../services/api";
+import { api } from '../../services/api';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import { Grid, Typography, Box, Divider } from "@mui/material";
+import { Grid, Typography, Box, Divider } from '@mui/material';
 
-import { Cards } from "./Cards";
+import { Cards } from './Cards';
 
-import { LinearProgress } from "@mui/material";
+import { LinearProgress } from '@mui/material';
 
 export const List = () => {
-  const [vehicleOject, setVehicleObject] = useState<Vehicle[]>([]);
-  const [currentSearch, setCurrentSearch] = useState("");
+    const [vehicleOject, setVehicleObject] = useState<Vehicle[]>([]);
+    const [currentSearch, setCurrentSearch] = useState('');
 
-  const getVehicles = async (nameOrBrand: string) => {
-    try {
-      const { data } = await api.get(`/vehicle/find?q=${nameOrBrand}`);
-      setVehicleObject(data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const getVehicles = async (nameOrBrand: string) => {
+        try {
+            const { data } = await api.get(`/vehicle/find?q=${nameOrBrand}`);
+            setVehicleObject(data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
-  const handleSearch = (toSearch: string) => {
-    setCurrentSearch(toSearch);
-  };
+    const handleSearch = (toSearch: string) => {
+        setCurrentSearch(toSearch);
+    };
 
-  useEffect(() => {
-    getVehicles(currentSearch);
-  }, [currentSearch]);
+    useEffect(() => {
+        getVehicles(currentSearch);
+    }, [currentSearch]);
 
-  return (
-    <Box
-      sx={{
-        borderRadius: "12px",
-        background: "#ffffff",
-        boxShadow: "5px 5px 20px #dedede,  -5px -5px 20px #ffffff",
-        border: "1px solid #dddddd",
-      }}
-    >
-      <ListHeader search={handleSearch} />
-      <Box
-        sx={{
-          width: "auto",
-          height: "98%",
-          minHeight: "40vh",
-          padding: "1vw",
-        }}
-      >
-        <Divider />
+    return (
         <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            height: vehicleOject.length > 0 ? "auto" : "300px",
-            alignItems: vehicleOject.length > 0 ? "none" : "center",
-            justifyContent: vehicleOject.length > 0 ? "none" : "center",
-          }}
+            sx={{
+                borderRadius: '12px',
+                background: '#ffffff',
+                boxShadow: '5px 5px 20px #dedede,  -5px -5px 20px #ffffff',
+                border: '1px solid #dddddd',
+            }}
         >
-          {vehicleOject.length > 0 ? (
-            <>
-              <Typography
-                variant="overline"
+            <ListHeader search={handleSearch} />
+            <Box
                 sx={{
-                  marginBottom: "15px",
-                  fontFamily: "Plus Jakarta Sans",
-                  fontWeight: 300,
+                    width: 'auto',
+                    height: '98%',
+                    minHeight: '40vh',
+                    padding: '1vw',
                 }}
-              >
-                Vehicles found: {vehicleOject.length}{" "}
-              </Typography>
-              <Grid
-                container
-                rowSpacing={3}
-                columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 2 }}
-              >
-                {vehicleOject.map((vehicle, index) => (
-                  <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                    <a href={`/carView/${vehicle.id}`}>
-                      <Cards key={vehicle.id} vehicle={vehicle} />
-                    </a>
-                  </Grid>
-                ))}
-              </Grid>
-            </>
-          ) : (
-            <Box sx={{ width: "70%" }}>
-              <LinearProgress />
+            >
+                <Divider />
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        height: vehicleOject.length > 0 ? 'auto' : '300px',
+                        alignItems: vehicleOject.length > 0 ? 'none' : 'center',
+                        justifyContent: vehicleOject.length > 0 ? 'none' : 'center',
+                    }}
+                >
+                    {vehicleOject.length > 0 ? (
+                        <>
+                            <Typography
+                                variant="overline"
+                                sx={{
+                                    marginBottom: '15px',
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    fontWeight: 300,
+                                }}
+                            >
+                                Vehicles found: {vehicleOject.length}{' '}
+                            </Typography>
+                            <Grid
+                                container
+                                rowSpacing={3}
+                                columnSpacing={{ xs: 1, sm: 2, md: 3, lg: 2 }}
+                            >
+                                {vehicleOject.map((vehicle, index) => (
+                                    <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                                        <a href={`/carView/${vehicle.id}`}>
+                                            <Cards key={vehicle.id} vehicle={vehicle} />
+                                        </a>
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </>
+                    ) : (
+                        <Box sx={{ width: '70%' }}>
+                            <LinearProgress />
+                        </Box>
+                    )}
+                </Box>
             </Box>
-          )}
         </Box>
-      </Box>
-    </Box>
-  );
+    );
 };
