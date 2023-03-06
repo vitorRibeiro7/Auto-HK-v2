@@ -23,9 +23,6 @@ export const EditPage = () => {
       setLoading(true);
       const { data } = await api.get(`/vehicle/${id}`);
       let [dataObj] = data;
-
-      console.log(dataObj);
-
       setCar(dataObj);
       setLoading(false);
     } catch (error) {
@@ -48,8 +45,6 @@ export const EditPage = () => {
   };
 
   const onSubmit = async (values: ICreateVehicleDto) => {
-    console.log(values);
-
     try {
       await api.patch(`/vehicle/${car?.id}`, {
         name: values.name,

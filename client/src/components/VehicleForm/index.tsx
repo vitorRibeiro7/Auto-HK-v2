@@ -47,10 +47,6 @@ const VehicleForm = ({
     resolver: yupResolver(CreateVehicleDto),
   });
 
-  useEffect(() => {
-    console.log("teste", defaultValues);
-  }, []);
-
   const handleSoldState = (e: any) => {
     setValue("sold", e.target.checked);
   };

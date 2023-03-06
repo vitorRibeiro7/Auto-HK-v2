@@ -34,8 +34,6 @@ export const CreatePage = () => {
   // };
 
   const onSubmit = async (values: ICreateVehicleDto) => {
-    console.log(values);
-
     try {
       await api.post("/vehicle", {
         name: values.name,

@@ -18,7 +18,6 @@ export const List = () => {
   const getVehicles = async (nameOrBrand: string) => {
     try {
       const { data } = await api.get(`/vehicle/find?q=${nameOrBrand}`);
-      console.log(data);
       setVehicleObject(data);
     } catch (error) {
       console.log(error);
@@ -80,7 +79,9 @@ export const List = () => {
               >
                 {vehicleOject.map((vehicle, index) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
-                    <Cards key={vehicle.id} vehicle={vehicle} />
+                    <a href={`/carView/${vehicle.id}`}>
+                      <Cards key={vehicle.id} vehicle={vehicle} />
+                    </a>
                   </Grid>
                 ))}
               </Grid>

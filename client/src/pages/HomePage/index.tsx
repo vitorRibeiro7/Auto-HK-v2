@@ -20,7 +20,6 @@ export const HomePage = () => {
   const getCount = async () => {
     try {
       const { data } = await api.get("/vehicle/count");
-      console.log(data);
       setCount(data);
     } catch (error) {
       console.log(error);
