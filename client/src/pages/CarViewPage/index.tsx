@@ -9,7 +9,7 @@ import { BackButton } from '../../components/BackButton';
 import { Vehicle } from '../../@types/vehicle';
 import { CarWrapper } from '../../components/CarWrapper';
 
-const CarViewPage = () => {
+export const CarViewPage = () => {
     const [car, setCar] = useState<Vehicle>();
 
     const { id } = useParams();
@@ -53,5 +53,3 @@ const CarViewPage = () => {
         </Container>
     );
 };
-
-export default CarViewPage;

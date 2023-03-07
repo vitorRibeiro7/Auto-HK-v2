@@ -1,4 +1,4 @@
-import { HomePage, ListPage, CreatePage } from './pages';
+import { HomePage, ListPage, CreatePage, EditPage, CarViewPage } from './pages';
 
 import {
     createBrowserRouter,
@@ -8,9 +8,6 @@ import {
 } from 'react-router-dom';
 
 import './index.css';
-import VehicleForm from './components/VehicleForm';
-import CarViewPage from './pages/CarViewPage';
-import { EditPage } from './pages/EditPage';
 
 const router = createBrowserRouter(
     createRoutesFromElements(
