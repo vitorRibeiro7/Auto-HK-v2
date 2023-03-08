@@ -14,4 +14,4 @@
 - [x] EditorConfig
 - [x] Yarn  
 - [x] Typescript
-- [ ] UseQuery
+- [x] UseQuery
