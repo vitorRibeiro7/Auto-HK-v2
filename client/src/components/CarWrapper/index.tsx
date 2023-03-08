@@ -14,7 +14,7 @@ interface CardProps {
     vehicle: Vehicle;
 }
 
-export const CarWrapper = ({ vehicle }: any) => {
+export const CarWrapper = ({ vehicle, loading, error }: any) => {
     const navigate = useNavigate();
 
     const [open, setOpen] = useState(false);
@@ -30,126 +30,142 @@ export const CarWrapper = ({ vehicle }: any) => {
                 display: 'flex',
                 flexDirection: 'row',
                 border: '1px solid #dddddd',
-                alignItems: vehicle ? 'none' : 'center',
-                justifyContent: vehicle ? 'none' : 'center',
+                alignItems: !error ? (!loading ? 'none' : 'center') : 'center',
+                justifyContent: !error ? (!loading ? 'none' : 'center') : 'center',
             }}
         >
             <DeleteModal open={open} onClose={handleClose} id={vehicle?.id} />
 
-            {vehicle ? (
-                <>
-                    <CardMedia
-                        sx={{ width: '50%' }}
-                        image={vehicle.image}
-                        title={`image of ${vehicle.name}`}
-                    />
-                    <Box
-                        sx={{
-                            width: '50%',
-                            height: 'auto',
-                            display: 'flex',
-                            padding: '10px',
-                        }}
-                    >
+            {!error ? (
+                !loading ? (
+                    <>
+                        <CardMedia
+                            sx={{ width: '50%' }}
+                            image={vehicle?.image}
+                            title={`image of ${vehicle?.name}`}
+                        />
                         <Box
                             sx={{
-                                width: '100%',
+                                width: '50%',
                                 height: 'auto',
                                 display: 'flex',
-                                justifyContent: 'space-between',
-                                flexDirection: 'column',
+                                padding: '10px',
                             }}
                         >
                             <Box
                                 sx={{
+                                    width: '100%',
+                                    height: 'auto',
                                     display: 'flex',
+                                    justifyContent: 'space-between',
                                     flexDirection: 'column',
                                 }}
                             >
-                                <Typography
-                                    variant="subtitle2"
-                                    sx={{
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        fontWeight: 300,
-                                    }}
-                                >
-                                    {vehicle.brand}
-                                </Typography>
-                                <Typography
-                                    variant="h6"
-                                    sx={{
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        fontWeight: 900,
-                                    }}
-                                >
-                                    {vehicle.name}
-                                </Typography>
-                                <Typography
-                                    variant="overline"
-                                    sx={{
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        fontWeight: 300,
-                                    }}
-                                >
-                                    {vehicle.year}
-                                </Typography>
-                                <Typography
-                                    variant="body1"
-                                    sx={{
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        fontWeight: 500,
-                                    }}
-                                >
-                                    {vehicle.description}
-                                </Typography>
-                            </Box>
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    width: '100%',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <Typography
-                                    variant="subtitle2"
-                                    sx={{
-                                        fontFamily: 'Plus Jakarta Sans',
-                                        fontWeight: 400,
-                                        color: vehicle.sold ? 'red' : 'green',
-                                    }}
-                                >
-                                    {vehicle.sold ? 'Sold' : 'Available'}
-                                </Typography>
                                 <Box
                                     sx={{
                                         display: 'flex',
-                                        gap: 2,
+                                        flexDirection: 'column',
                                     }}
                                 >
-                                    <Button
-                                        variant="contained"
-                                        startIcon={<EditIcon />}
-                                        onClick={() => navigate(`../../edit/${vehicle.id}`)}
+                                    <Typography
+                                        variant="subtitle2"
+                                        sx={{
+                                            fontFamily: 'Plus Jakarta Sans',
+                                            fontWeight: 300,
+                                        }}
                                     >
-                                        Edit
-                                    </Button>
-                                    <Button
-                                        variant="contained"
-                                        color="error"
-                                        startIcon={<DeleteIcon />}
-                                        onClick={handleOpen}
+                                        {vehicle?.brand}
+                                    </Typography>
+                                    <Typography
+                                        variant="h6"
+                                        sx={{
+                                            fontFamily: 'Plus Jakarta Sans',
+                                            fontWeight: 900,
+                                        }}
                                     >
-                                        Delete
-                                    </Button>
+                                        {vehicle?.name}
+                                    </Typography>
+                                    <Typography
+                                        variant="overline"
+                                        sx={{
+                                            fontFamily: 'Plus Jakarta Sans',
+                                            fontWeight: 300,
+                                        }}
+                                    >
+                                        {vehicle?.year}
+                                    </Typography>
+                                    <Typography
+                                        variant="body1"
+                                        sx={{
+                                            fontFamily: 'Plus Jakarta Sans',
+                                            fontWeight: 500,
+                                        }}
+                                    >
+                                        {vehicle?.description}
+                                    </Typography>
+                                </Box>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        width: '100%',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <Typography
+                                        variant="subtitle2"
+                                        sx={{
+                                            fontFamily: 'Plus Jakarta Sans',
+                                            fontWeight: 400,
+                                            color: vehicle?.sold ? 'red' : 'green',
+                                        }}
+                                    >
+                                        {vehicle?.sold ? 'Sold' : 'Available'}
+                                    </Typography>
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            gap: 2,
+                                        }}
+                                    >
+                                        <Button
+                                            variant="contained"
+                                            startIcon={<EditIcon />}
+                                            onClick={() => navigate(`../../edit/${vehicle?.id}`)}
+                                        >
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            color="error"
+                                            startIcon={<DeleteIcon />}
+                                            onClick={handleOpen}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </Box>
                                 </Box>
                             </Box>
                         </Box>
+                    </>
+                ) : (
+                    <Box sx={{ width: '70%' }}>
+                        <LinearProgress />
                     </Box>
-                </>
+                )
             ) : (
                 <Box sx={{ width: '70%' }}>
-                    <LinearProgress />
+                    <Typography
+                        variant="subtitle1"
+                        color="#868686"
+                        align="center"
+                        sx={{
+                            fontFamily: 'Plus Jakarta Sans',
+                            fontWeight: 400,
+                        }}
+                    >
+                        Error fetching information about this vehicle
+                    </Typography>
                 </Box>
             )}
         </Card>
