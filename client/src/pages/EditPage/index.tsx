@@ -7,6 +7,8 @@ import { api } from '../../services/api';
 
 import { Vehicle } from '../../@types/vehicle';
 
+import { useQuery } from 'react-query';
+
 import { ICreateVehicleDto } from '../../services/dto/create-vehicle.dto';
 import { useState, useEffect } from 'react';
 
@@ -18,22 +20,12 @@ export const EditPage = () => {
     const [car, setCar] = useState<Vehicle>();
     const [loading, setLoading] = useState(true);
 
-    const handleGetValues = async () => {
-        try {
-            setLoading(true);
-            const { data } = await api.get(`/vehicle/${id}`);
-            let [dataObj] = data;
-            setCar(dataObj);
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-            setLoading(true);
-        }
-    };
-
-    useEffect(() => {
-        handleGetValues();
-    }, [loading]);
+    const { isLoading, error, data } = useQuery('vechiel', async () => {
+        const { data } = await api.get(`/vehicle/${id}`);
+        let [dataObj] = data;
+        setCar(dataObj);
+        return dataObj;
+    });
 
     const initialValues = {
         name: car?.name,
@@ -75,7 +67,7 @@ export const EditPage = () => {
             }}
         >
             <Header />
-            {!loading ? (
+            {!isLoading ? (
                 <VehicleForm
                     defaultValues={initialValues}
                     title="edit vehicle"
