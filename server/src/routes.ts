@@ -1,34 +1,11 @@
 import { FastifyInstance } from 'fastify';
 import { z } from 'zod'
 import { prisma } from './lib/prisma';
+import VehicleController from '../src/controllers/Vehicle'
 
 export async function appRoutes(app: FastifyInstance) {
 
-    app.post('/vehicle', async (request) => {
-
-        const createvehicleBody = z.object({
-            name: z.string(),
-            brand: z.string(),
-            year: z.number().min(1980).max(2024),
-            description: z.string(),
-            image: z.string(),
-            sold: z.boolean()
-        })
-
-        const { name, brand, year, description, sold, image } = createvehicleBody.parse(request.body)
-
-        await prisma.vehicle.create({
-            data: {
-                name,
-                brand,
-                year,
-                description,
-                image,
-                sold,
-            }
-        })
-
-    })
+    app.post('/vehicle', VehicleController.store)
 
     app.get('/vehicle/find', async (request) => {
 
