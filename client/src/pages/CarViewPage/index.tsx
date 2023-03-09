@@ -15,7 +15,6 @@ export const CarViewPage = () => {
     const { id } = useParams();
 
     const { isLoading, error, data } = useQuery('car', async () => {
-        // Envolve a chamada da API com useQuery
         const { data } = await api.get(`/vehicle/${id}`);
         let [dataObj] = data;
         return dataObj;
