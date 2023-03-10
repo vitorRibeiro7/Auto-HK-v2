@@ -1,31 +1,13 @@
 import { FastifyInstance } from 'fastify';
 import { z } from 'zod'
 import { prisma } from './lib/prisma';
-import VehicleController from '../src/controllers/Vehicle'
+import VehicleController from './controllers/Vehicle'
 
 export async function appRoutes(app: FastifyInstance) {
 
     app.post('/vehicle', VehicleController.store)
 
-    app.get('/vehicle/find', async (request) => {
-
-        const qParams = z.object({
-            q: z.string()
-        })
-
-        const { q } = qParams.parse(request.query)
-
-        const vehicles = await prisma.vehicle.findMany({
-            where: {
-                OR: [
-                    { name: { contains: q } },
-                    { brand: { contains: q } }
-                ]
-            }
-        })
-
-        return vehicles
-    })
+    app.get('/vehicle/find', VehicleController.find)
 
     app.get('/vehicle/count', async () => {
         const count = await prisma.vehicle.count();

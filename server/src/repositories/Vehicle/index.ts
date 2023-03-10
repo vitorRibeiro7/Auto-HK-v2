@@ -11,6 +11,22 @@ class VehicleRepository{
         })
     }
 
+    async find(q: string) {
+        
+
+        const vehicles = await prisma.vehicle.findMany({
+            where: {
+                OR: [
+                    {name: { contains: q}},
+                    {brand: { contains: q}}
+                ]
+            }
+        })
+
+        return vehicles;
+
+    }
+
 }
 
 export default VehicleRepository;
