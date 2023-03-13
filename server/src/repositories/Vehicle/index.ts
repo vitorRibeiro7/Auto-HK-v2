@@ -27,6 +27,12 @@ class VehicleRepository{
 
     }
 
+    async getCount() {
+        const count = prisma.vehicle.count()
+
+        return count
+    }
+
 }
 
 export default VehicleRepository;

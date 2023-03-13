@@ -6,14 +6,8 @@ import VehicleController from './controllers/Vehicle'
 export async function appRoutes(app: FastifyInstance) {
 
     app.post('/vehicle', VehicleController.store)
-
     app.get('/vehicle/find', VehicleController.find)
-
-    app.get('/vehicle/count', async () => {
-        const count = await prisma.vehicle.count();
-
-        return count
-    })
+    app.get('/vehicle/count', VehicleController.getcount)
 
     app.get('/vehicle', async () => {
 
