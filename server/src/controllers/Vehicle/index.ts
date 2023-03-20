@@ -1,5 +1,6 @@
 import CreateVehicleService from "../../services/Vehicle/CreateVehicle";
 import FindVehicleService from "../../services/Vehicle/FindVehicle"
+import GetAllVehicle from "../../services/Vehicle/GetAllVehicle";
 import GetCountVehicles from "../../services/Vehicle/GetCountVehicles";
 
 class VehicleController {
@@ -28,8 +29,18 @@ class VehicleController {
     async getcount(request : any, reply: any) {
         try {
             const count = await GetCountVehicles.execute(reply)
+            reply.send(count)
+        } catch (error: any) {
+            console.log(error);
+            const statusCode = error.status || 500
+            reply.status(statusCode).send().json(error)
+        }
+    }
 
-            return count;
+    async getall(request: any, reply: any) {
+        try {
+            const vehicles = await GetAllVehicle.execute()
+            reply.send().json(vehicles)
         } catch (error: any) {
             console.log(error);
             const statusCode = error.status || 500

@@ -33,6 +33,12 @@ class VehicleRepository{
         return count
     }
 
+    async GetAll() {
+        const vehicles = prisma.vehicle.findMany()
+
+        return vehicles
+    }
+
 }
 
 export default VehicleRepository;
