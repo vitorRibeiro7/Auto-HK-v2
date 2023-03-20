@@ -5,18 +5,11 @@ import VehicleController from './controllers/Vehicle'
 
 export async function appRoutes(app: FastifyInstance) {
 
-    app.post('/vehicle', VehicleController.store)
     app.get('/vehicle/find', VehicleController.find)
     app.get('/vehicle/count', VehicleController.getcount)
-
-    app.get('/vehicle', async () => {
-
-        const vehs = await prisma.vehicle.findMany()
-
-        return vehs
-    })
-
+    app.get('/vehicle', VehicleController.getall)
     app.get('/vehicle/:id', async (request) => {
+    app.post('/vehicle', VehicleController.store)
 
         const idVehParams = z.object({
             id: z.string()
