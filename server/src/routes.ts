@@ -8,25 +8,8 @@ export async function appRoutes(app: FastifyInstance) {
     app.get('/vehicle/find', VehicleController.find)
     app.get('/vehicle/count', VehicleController.getcount)
     app.get('/vehicle', VehicleController.getall)
-    app.get('/vehicle/:id', async (request) => {
+    app.get('/vehicle/:id', VehicleController.getbyid)
     app.post('/vehicle', VehicleController.store)
-
-        const idVehParams = z.object({
-            id: z.string()
-        });
-
-        const { id } = idVehParams.parse(request.params);
-        const parsedId = parseInt(id, 10);
-
-
-        const veh = prisma.vehicle.findMany({
-            where: {
-                id: parsedId
-            }
-        })
-
-        return veh
-    })
 
     app.put('/vehicle/:id', async (request) => {
         const idVehParams = z.object({
