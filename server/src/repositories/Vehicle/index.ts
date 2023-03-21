@@ -28,17 +28,27 @@ class VehicleRepository{
     }
 
     async getCount() {
-        const count = prisma.vehicle.count()
+        const count = await prisma.vehicle.count()
 
         return count
     }
 
     async GetAll() {
-        const vehicles = prisma.vehicle.findMany()
+        const vehicles = await prisma.vehicle.findMany()
 
         return vehicles
     }
 
+    async GetById(id: number) {
+        const vehicle = await prisma.vehicle.findMany({
+            where: {
+                id
+            }
+        })
+
+        return vehicle;
+    }
+ 
 }
 
 export default VehicleRepository;
